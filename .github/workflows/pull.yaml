@@ -11,4 +11,4 @@ jobs:
 
     steps:
       - name: "Deploy"
-        run: ssh ${{secrets.SSH_USER}}@${{sectrest.SSH_IP}} "cd /www/htdocs/w0109bd9/katalog.computer-extra.de && git fetch && git pull"
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_IP}} "cd /www/htdocs/w0109bd9/katalog.computer-extra.de && git fetch && git pull"
