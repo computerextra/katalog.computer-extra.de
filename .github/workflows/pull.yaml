@@ -19,13 +19,13 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/external-machine.key
           chmod 600 ~/.ssh/external-machine.key
-          cat >> ~/.ssh/config <<END
-          HOST external-machine
+          cat >>~/.ssh/config <<END
+          Host external-machine
             HostName $SSH_HOST
             User $SSH_USER
             Port 22
-            IdentifyFile ~/.ssh/external-machine.key
-            StrictHostCheking no
+            IdentityFile ~/.ssh/external-machine.key
+            StrictHostKeyChecking no
           END
 
       - name: "Deploy"
