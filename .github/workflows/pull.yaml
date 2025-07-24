@@ -1,0 +1,14 @@
+name: Pull newest Push to Server
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  hot-deploy-content:
+    name: "Hot deploy"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Deploy"
+        run: ssh ${{secrets.SSH_USER}}@${{sectrest.SSH_IP}} "cd /www/htdocs/w0109bd9/katalog.computer-extra.de && git fetch && git pull"
