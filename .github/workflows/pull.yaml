@@ -10,5 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: "Configure SSH"
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_IP }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/external-machine.key
+          chmod 600 ~/.ssh/external-machine.key
+          cat >> ~/.ssh/config <<END
+          HOST external-machine
+            HostName $SSH_HOST
+            User $SSH_USER
+            Port 22
+            IdentifyFile ~/.ssh/external-machine.key
+            StrictHostCheking no
+          END
+
       - name: "Deploy"
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_IP}} "cd /www/htdocs/w0109bd9/katalog.computer-extra.de && git fetch && git pull"
+        run: ssh external-machine "cd /www/htdocs/w0109bd9/katalog.computer-extra.de && git fetch && git pull"
